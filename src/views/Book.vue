@@ -11,7 +11,7 @@ import { onMounted } from 'vue';
 
 onMounted(()=>{
     RebillyInstruments.mount({
-  publishableKey: 'pk_sandbox_0tOFA8jd2Drc-IlPsj6S5Km5De_Fd6vhs84xnlZ',
+      publishableKey: import.meta.env.VITE_APP_PUBLISHABLE_KEY,
   organizationId: 'phronesis-exotic-escapes',
   websiteId: 'exoticescapes.com',
   apiMode: 'sandbox',

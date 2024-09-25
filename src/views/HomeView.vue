@@ -13,39 +13,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from "vue";
-// import Api from "../apiSetup";
-import api from "../services/apiSetup"
-
-const columns = ref([
-  "Date of issue",
-  "Invoice status",
-  "Amount due",
-  "Actions",
-]);
-const invoicesList = ref([]);
-
-const fetchInvoices = async () => {
-  try {
-    const response = await api.invoices.getAll({
-      filter: "customerId:cus_01J6FC5YXSCT80R0CV35KZJWKN;status:unpaid",
-    });
-    const invoices = response.items.map((invoice) => {
-    return {
-      ...invoice.fields
-    }
-  });
-  // console.log(invoices);
-  invoicesList.value = invoices;
-  } catch (error) {}
-};
-
-onMounted(() => {
-  fetchInvoices();
-});
-</script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 table {

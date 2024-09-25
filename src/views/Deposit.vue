@@ -1,7 +1,7 @@
 <template>
-    <div style="text-align: center; width: 100%;">
-    <div class="rebilly-instruments-summary"></div>
-    <div class="rebilly-instruments"></div>
+    <div>
+        <div class="rebilly-instruments-summary"></div>
+        <div class="rebilly-instruments"></div>
     </div>
 </template>
 
@@ -9,24 +9,25 @@
 import RebillyInstruments from '@rebilly/instruments';
 import { onMounted } from 'vue';
 
-
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJqd3RfMDFKOE45NE5SRTVYNloyVkdSRzcxNEFHMFYiLCJleHAiOjE3MjcyOTUyODYuNTgwNzA0LCJpYXQiOjE3MjcyOTEwODYuNjA3MDAyLCJhY2wiOlt7InNjb3BlIjp7ImRlcG9zaXRSZXF1ZXN0SWQiOlsiZGVwX3JlcV8wMUo4Tjk0TlFNVEU1SDJHWFBBUlZQQU1XOCJdfSwicGVybWlzc2lvbnMiOlsyODQsMjg2LDQxNCw0MTUsNDM0LDQxMSw0MTIsNDI0LDQyNSw0MjYsNDI3LDQyOCw0MjksNDA5LDQxMCw0MDEsNDAyLDQzMyw0ODgsNDg3LDY4Nyw2ODEsNjg4XX1dLCJjbGFpbXMiOnsid2Vic2l0ZUlkIjoiZXhvdGljZXNjYXBlcy5jb20iLCJkZXBvc2l0UmVxdWVzdElkIjoiZGVwX3JlcV8wMUo4Tjk0TlFNVEU1SDJHWFBBUlZQQU1XOCIsInRyYW5zYWN0aW9uSWQiOm51bGx9LCJtZXJjaGFudCI6InBocm9uZXNpcy1leG90aWMtZXNjYXBlcyIsImN1c3RvbWVyIjp7ImlkIjoiY3VzXzAxSjZGQVBYQ0swUVAzTVAxUE45QVNQMUVFIiwibmFtZSI6IkpvaG4gRG9lIiwiY3JlYXRlZFRpbWUiOiIyMDI0LTA4LTI5VDE1OjA1OjIyKzAwOjAwIn19.GeaEeqM7NjDG61S9EyTcvLfDxSaTMp4V2_mC5ByGvn_a_3R2Ppa-BUH_cGCn1MxfvxneOJhfWpdNc17imyi_3K9kGW_zm9wTiIzSbZhQ4VvVxwL4tb0wpI3f18v1GwODukIECJlZIbrSCdsEhXooPbhaBwRfaWm47BbzGueuQ4hvXEyhKPJfG30gPCbRCVIE6z7a5Y1LSM17SLCnlmpz3BJquZXBjAz4QUmV494MQHKaiiAhDBOZT54JuAJpyUvNn61IuSR0MBVJNLyUCycYUsgIF2UVfnJ-RQU0AfwJiinULvUB_x9PWOEBCXOhErFuQwd1XUGvYglefGXBehecrA'
-
 onMounted(()=>{
     RebillyInstruments.mount({
-  publishableKey: 'pk_sandbox_0tOFA8jd2Drc-IlPsj6S5Km5De_Fd6vhs84xnlZ',
+  publishableKey: import.meta.env.VITE_APP_PUBLISHABLE_KEY,
   organizationId: 'phronesis-exotic-escapes',
   websiteId: 'exoticescapes.com',
   apiMode: 'sandbox',
   deposit: {
-            amount: 9.99,
+            amount: 200,
             buttons: [1000*0.2, 1000*0.3, 1000*0.4],
             currency: 'USD',
+            customAmount: {
+                minimum: 1000*0.2,
+                maximum: 1000,
+            }
         },
 //   deposit:{
-//         depositRequestId: 'dep_req_01J8N94NQMTE5H2GXPARVPAMW8',
+//         depositRequestId: '',
 //       },
-      jwt: token,
+      jwt: import.meta.env.VITE_APP_TOKEN,
 });
 
 
