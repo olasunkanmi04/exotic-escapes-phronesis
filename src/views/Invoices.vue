@@ -37,7 +37,7 @@ const invoicesList = ref([]);
 const fetchInvoices = async () => {
   try {
     const response = await api.invoices.getAll({
-      filter: "customerId:cus_01J6FC5YXSCT80R0CV35KZJWKN;status:unpaid",
+      filter: "customerId:cus_01J6FC5YXSCT80R0CV35KZJWKN;status:unpaid,upcoming",
     });
     const invoices = response.items.map((invoice) => {
     return {

@@ -11,9 +11,13 @@ import { RouterLink, RouterView } from 'vue-router'
 </nav>
 
 <header>
-      <img src="https://www.coremedicalgroup.com/hubfs/Core%20Medical%20June%202018/Home%20Page/banner_image.png" alt="" style="width: 100%;">
+      <img src="https://www.coremedicalgroup.com/hubfs/Core%20Medical%20June%202018/Home%20Page/banner_image.png" alt="" style="height: 500px; margin:0 auto; display: block;">
     </header>
-  <RouterView />
+
+    <div style="margin:0 auto; width: 100%; max-width: 600px;">
+      <RouterView />
+
+    </div>
 
   <footer>
   <div class="footer-content">
