@@ -14,7 +14,7 @@ import PlanCard from "@/components/PlanCard.vue";
 
 const planList = ref([]);
 
-const fetchInvoices = async () => {
+const fetchPlans = async () => {
   try {
     const response = await fetch("/.netlify/functions/getPlans");
 
@@ -31,7 +31,7 @@ const fetchInvoices = async () => {
 };
 
 onMounted(() => {
-  fetchInvoices();
+  fetchPlans();
 });
 </script>
 

@@ -11,6 +11,7 @@ import { RouterLink, RouterView } from "vue-router";
   />
   <nav>
     <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/store">Store</RouterLink>
     <RouterLink to="/invoices">Invoices</RouterLink>
     <RouterLink to="/debriefs">Debriefs</RouterLink>
   </nav>
@@ -23,7 +24,7 @@ import { RouterLink, RouterView } from "vue-router";
     />
   </header>
 
-  <div style="margin: 0 auto; width: 100%; max-width: 900px">
+  <div style="margin: 0 auto 100px; width: 100%; max-width: 900px">
     <RouterView />
   </div>
 
@@ -127,7 +128,10 @@ footer {
   padding: 20px 0;
   text-align: center;
   font-family: "Arial", sans-serif;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .footer-content {

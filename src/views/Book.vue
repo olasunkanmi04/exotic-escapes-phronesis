@@ -13,10 +13,12 @@ const agreeToSub = `
 I agree to subscribe. I acknowledge that I will be charged a recurring fee. I understand that I can cancel my subscription at any time before the next billing cycle to avoid future charges.
 `;
 
-const agreeToTOS = `By subscribing, I have read and understood the [terms of service](https://www.example.com/tos) and [Privacy Policy](https://www.example.com/privacy).`;
+const agreeToTOS = `By paying, I have read and understood the [terms of service](https://www.example.com/tos) and [Privacy Policy](https://www.example.com/privacy).`;
 
 const route = useRoute();
 const planId = route.params.id;
+const quantity = Number(route.query.quantity) || 1;
+
 onMounted(() => {
   RebillyInstruments.mount({
     publishableKey: import.meta.env.VITE_APP_PUBLISHABLE_KEY,
@@ -26,7 +28,7 @@ onMounted(() => {
     items: [
       {
         planId: planId,
-        quantity: 1,
+        quantity: quantity,
       },
     ],
 
@@ -39,7 +41,7 @@ onMounted(() => {
     },
     paymentInstruments: {
       address: {
-        show: ["phoneNumber", "email", "city", "country"],
+        show: ["phoneNumber", "email", "city", "country", "postalCode"],
         name: "default",
       },
     },
@@ -49,13 +51,12 @@ onMounted(() => {
     i18n: {
       en: {
         consentCheck: {
-          agreeToTOS,
+          // agreeToTOS,
           agreeToSub,
         },
         form: {
           address: {
             address2Label: "Address 2",
-            fullNameLabel: "Full Name",
           },
         },
       },

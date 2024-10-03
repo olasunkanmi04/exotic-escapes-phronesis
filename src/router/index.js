@@ -28,14 +28,24 @@ const router = createRouter({
       component: () => import("../views/Book.vue"),
     },
     {
+      path: "/checkout/:id",
+      name: "checkout",
+      component: () => import("../views/Book.vue"),
+    },
+    {
       path: "/debriefs",
       name: "debriefs",
       component: () => import("../views/Debriefs.vue"),
     },
     {
-      path: "/debriefs/project-8",
-      name: "project-8",
-      component: () => import("../views/projects/Project8.vue"),
+      path: "/store",
+      name: "store",
+      component: () => import("../views/Store.vue"),
+    },
+    {
+      path: "/store/:id",
+      name: "store details",
+      component: () => import("../views/StoreDetails.vue"),
     },
   ],
 });
