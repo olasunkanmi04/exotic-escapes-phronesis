@@ -1,17 +1,39 @@
 <template>
-  <div style="margin-bottom: 100px;">
-    <div style="text-align: center; width: 100%;">
-     
-      <h3 style="font-size: 50px; color: #febf5d;"> Book your next vacation with us!</h3>
-      <p style="font-size: 20px; color: #009b7c;">Only for <strong style=" color: #febf5d;">$1000</strong></p>
-
-     
-    <RouterLink to="/book">
-      <button style="color:#009b7c; width: 200px; height: 50px; background: #febf5d; font-size: 18px; border: none; border-radius: 8px; cursor:pointer">Book now!</button>
-    </RouterLink>
+  <div style="margin-bottom: 100px">
+    <div style="text-align: center; width: 100%">
+      <div class="product-grid">
+        <PlanCard v-for="plan in planList" :plan="plan" />
+      </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import PlanCard from "@/components/PlanCard.vue";
+
+const planList = ref([]);
+
+const fetchInvoices = async () => {
+  try {
+    const response = await fetch("/.netlify/functions/getPlans");
+
+    const data = await response.json();
+    const plans = data.items.map((plan) => {
+      return {
+        ...plan.fields,
+      };
+    });
+    planList.value = plans;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+onMounted(() => {
+  fetchInvoices();
+});
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -39,5 +61,10 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: #f1f1f1; /* Highlight row on hover */
+}
+.product-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to next line */
+  /* justify-content: center; */
 }
 </style>

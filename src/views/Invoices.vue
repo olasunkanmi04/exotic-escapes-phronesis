@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <table>
+  <div class="table-container">
+    <table class="styled-table">
       <thead>
         <tr>
           <th v-for="column in columns" :key="colunm">{{ column }}</th>
@@ -12,8 +12,14 @@
           <td>{{ invoice.status }}</td>
           <td>{{ invoice.subtotalAmount }}</td>
           <td>
-            <button>View</button>
-            <a :href="invoice.paymentFormUrl" target="_blank">Pay</a>
+            <!-- <button>View</button> -->
+            <a
+              :href="invoice.paymentFormUrl"
+              target="_blank"
+              v-if="invoice.status !== 'paid'"
+            >
+              <button class="styled-button">Pay</button>
+            </a>
           </td>
         </tr>
       </tbody>
@@ -23,8 +29,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-// import Api from "../apiSetup";
-import api from "../services/apiSetup"
 
 const columns = ref([
   "Date of issue",
@@ -36,17 +40,18 @@ const invoicesList = ref([]);
 
 const fetchInvoices = async () => {
   try {
-    const response = await api.invoices.getAll({
-      filter: "customerId:cus_01J6FC5YXSCT80R0CV35KZJWKN;status:unpaid,upcoming",
+    const response = await fetch("/.netlify/functions/getInvoices");
+
+    const data = await response.json();
+    const invoices = data.items.map((invoice) => {
+      return {
+        ...invoice.fields,
+      };
     });
-    const invoices = response.items.map((invoice) => {
-    return {
-      ...invoice.fields
-    }
-  });
-  // console.log(invoices);
-  invoicesList.value = invoices;
-  } catch (error) {}
+    invoicesList.value = invoices;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 onMounted(() => {
@@ -56,29 +61,87 @@ onMounted(() => {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-table {
+.table-container {
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.styled-table {
   width: 100%;
-  border-collapse: collapse; /* Ensures borders are shared between cells */
-  margin-bottom: 1rem; /* Adds space below the table */
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-th,
-td {
-  border: 1px solid #ddd; /* Border around cells */
-  padding: 8px; /* Padding inside cells */
-  text-align: left; /* Align text to the left */
+.styled-table thead {
+  background-color: #009b7d; /* Teal */
+  color: #ffffff;
 }
 
-th {
-  background-color: #f2f2f2; /* Light background for table headers */
-  font-weight: bold; /* Makes header text bold */
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: left;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9; /* Alternating row background color */
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
 }
 
-tr:hover {
-  background-color: #f1f1f1; /* Highlight row on hover */
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: rgba(254, 191, 93, 0.4); /* Soft Yellow */
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f0c26a; /* Light yellow hover */
+  color: #ffffff;
+}
+
+.styled-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.styled-table td {
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .styled-table th,
+  .styled-table td {
+    display: block;
+    text-align: right;
+  }
+
+  .styled-table th {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .styled-table tr {
+    margin-bottom: 15px;
+  }
+
+  .styled-table td {
+    text-align: left;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .styled-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
 }
 </style>
