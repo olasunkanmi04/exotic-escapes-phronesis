@@ -1,10 +1,4 @@
-import RebillyAPI from "rebilly-js-sdk";
-
-const api = RebillyAPI({
-  apiKey: process.env.VITE_REBILLY_API_KEY,
-  organizationId: process.env.VITE_ORGANIZATION_ID,
-  sandbox: true,
-});
+import api from "../utils/apiClient.mjs";
 
 export async function handler(event, context) {
   const filter = event.queryStringParameters.filter;
