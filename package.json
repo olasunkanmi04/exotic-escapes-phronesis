@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rebilly/framepay-vue": "^5.26.12",
     "@rebilly/instruments": "^9.84.1",
     "pinia": "^2.1.7",
     "rebilly-js-sdk": "^56.54.2",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "sass-embedded": "^1.79.4",
     "vite": "^5.3.1",
     "vite-plugin-vue-devtools": "^7.3.1"
   }

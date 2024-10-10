@@ -64,13 +64,6 @@ onMounted(() => {
   }
 });
 
-// const product = ref({
-//   name: "Product Name",
-//   description:
-//     "This is a detailed description of the product. It highlights features, benefits, and other details the user may find useful.",
-//   price: 59.99,
-// });
-
 const images = ref(
   Array.from(
     { length: 5 },
